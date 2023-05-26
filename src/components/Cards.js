@@ -5,38 +5,44 @@ import logoWork from '../imgs/work.png'
 import logoSalary from '../imgs/attach_money.png'
 import logoDelete from '../imgs/delete.png'
 
-export default function Cards() {
+export default function Cards({ id, name, regiao, tipo, salario, descricao, link, linguagens, handlerRemove }) {
+
+    const removeJob = (e) => {
+        e.preventDefault()
+        handlerRemove(id)
+    }
+
+
     return (
         <>
             <Container>
                 <BoxCards>
-                    <Card>
+                    <Card key={id} id={id}>
                         <Header>
-                            <H3>Desenvolvedor(a) Front-End Angular </H3>
-                            <Delete>
+                            <H3>{name}</H3>
+                            <Delete onClick={removeJob}>
                                 <Imgs src={logoDelete} alt="delete" />
                             </Delete>
                         </Header>
                         <ButtonsLanguages>
-                            <ButtonLanguage>Angular</ButtonLanguage>
-                            <ButtonLanguage>Python</ButtonLanguage>
+                            <ButtonLanguage>{linguagens}</ButtonLanguage>
                         </ButtonsLanguages>
                         <InfosJob>
                             <Imgs src={logoMap} alt="location" />
-                            <TextJob>Remoto</TextJob>
+                            <TextJob>{regiao}</TextJob>
                             <Imgs src={logoWork} alt="work" />
-                            <TextJob>Pleno</TextJob>
+                            <TextJob>{tipo}</TextJob>
                         </InfosJob>
                         <InfoJobSalary>
                             <ImgSalary src={logoSalary} alt="salary" />
-                            <p>5000</p>
+                            <p>{salario}</p>
                         </InfoJobSalary>
                         <Description>
                             <DescriptionText>
                                 <H5>Descrição:</H5>
-                                <TextDescription>Instruções SQL e extração de dadosProgramação em PL/SQL para desenvolverVerificação de scripts de criação de objetos, modelagem de dados e rotinas de manutenção do BDAdministração de usuáriosFormação em cursos da área de TIExecução de tarefas ...</TextDescription>
+                                <TextDescription>{descricao}</TextDescription>
                             </DescriptionText>
-                            <ButtonSaibaMais href="https://www.google.com/">Saiba Mais</ButtonSaibaMais>
+                            <ButtonSaibaMais href={link} target="_blank">Saiba Mais</ButtonSaibaMais>
                         </Description>
                     </Card>
                 </BoxCards>
@@ -46,18 +52,9 @@ export default function Cards() {
 }
 
 const Container = styled.div`
-    height: 70vh;
-    overflow-y: auto;
     position: relative;
-
-    background-color: #FFFFFF;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    padding: 30px 0px 30px 0px;
-
+    overflow-y: auto;
+    padding: 20px;
 
     ::-webkit-scrollbar {
         width: 10px;
@@ -75,6 +72,13 @@ const Container = styled.div`
         border-radius: 10px;
     }
 
+    background-color: #FFFFFF;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 30px 0px 30px 0px;
 `
 const BoxCards = styled.div`
 
@@ -179,7 +183,7 @@ const DescriptionText = styled.div`
     width: 95%;
 `
 
-const H5  = styled.h5`
+const H5 = styled.h5`
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
     margin: 0px;
@@ -204,5 +208,5 @@ const ButtonSaibaMais = styled.a`
     cursor: pointer;
 
     position: relative;
-    top: 25px;
+    top: 5px;
 `
