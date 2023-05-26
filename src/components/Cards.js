@@ -53,24 +53,6 @@ export default function Cards({ id, name, regiao, tipo, salario, descricao, link
 
 const Container = styled.div`
     position: relative;
-    overflow-y: auto;
-    padding: 20px;
-
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 5px #12131F; 
-        border-radius: 10px;
-    }
-    
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-        background: #D96429; 
-        border-radius: 10px;
-    }
 
     background-color: #FFFFFF;
 
@@ -79,6 +61,7 @@ const Container = styled.div`
     align-items: center;
 
     padding: 30px 0px 30px 0px;
+
 `
 const BoxCards = styled.div`
 
