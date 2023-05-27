@@ -8,7 +8,9 @@ import Footer from "../components/Footer";
 import Cards from "../components/Cards";
 import Message from "../components/Message";
 
-function Home() {
+import background from '../imgs/image01.png'
+
+export default function Home() {
   const [getAllJobs, setGetAllJobs] = useState([])
   const [jobMessage, setJobMessage] = useState('')
 
@@ -48,7 +50,14 @@ function Home() {
 
   return (
     <>
-      <Banner />
+      <Banner
+        background={background}
+        msg={'Adicionar vagas'}
+        titulo={'As melhores vagas para você 💻'}
+        mensagem={'Aqui você encontra vagas da área '}
+        text={'de tecnologia com facilidade e velocidade'}
+        router={'/vagas'}
+      />
       {message && <Message msg={jobMessage} />}
       {jobMessage && <Message msg={jobMessage} />}
       <Container>
@@ -75,9 +84,6 @@ function Home() {
     </>
   );
 }
-
-export default Home;
-
 
 const Container = styled.div`
     height: 100vh;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Navbar from "./Navbar";
 
-export default function Banner({background, titulo, mensagem, text, msg, router}) {
+export default function Banner({background, titulo, msg, router}) {
     return (
         <>
             <Container>
@@ -10,8 +10,6 @@ export default function Banner({background, titulo, mensagem, text, msg, router}
 
                 <Infos>
                     <H3>{titulo}</H3>
-                    <P>{mensagem}</P>
-                    <P>{text}</P>
                 </Infos>
 
             </Container>
@@ -30,45 +28,28 @@ const Container = styled.div`
 
 const Img = styled.img`
     position: absolute;
-    top: -40px;
+    width: 100%;
+    top: 60px;
 `
 
 const Infos = styled.div`
     position: absolute;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
 
-    top: 30%;
-    left: 25%;
+    top: 15%;
+    left: 39%;
 
     @media(max-width: 1300px) {
-        top: 30%;
-        left: 30%;
+        top: 15%;
+        left: 40%;
     }
 `
 
 const H3 = styled.h3`
     font-family: 'Montserrat', sans-serif;
     font-size: 48px;
-    color: #E5E5E5;
-
-    span {
-        color: #D96429;
-    }
-`
-
-const P = styled.p`
-   font-family: 'Montserrat', sans-serif;
-   font-size: 28px;
-   text-align: center;
-   font-weight: 500;
-   letter-spacing: 4px;
-   color: #E5E5E5;
-
-   span {
-    color: #12131F;
-   }
+    color: #000000;
 `
 

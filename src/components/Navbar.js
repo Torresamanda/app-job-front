@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export default function Navbar() {
+export default function Navbar({ msg, router }) {
     return (
       <Nav>
-        <Link to={'/'}>
-            <Button>Adicionar Vagas</Button>
+        <Link to={router}>
+            <Button>{msg}</Button>
         </Link>
       </Nav>
     );
