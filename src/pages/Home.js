@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 import styled from "styled-components";
 
 import Banner from "../components/Banner";
 import Footer from "../components/Footer";
 import Cards from "../components/Cards";
+import Message from "../components/Message";
 
 function Home() {
   const [getAllJobs, setGetAllJobs] = useState([])
+  const [jobMessage, setJobMessage] = useState('')
+
+  const location = useLocation()
+  let message = ''
+  if (location.state) {
+    message = location.state.message
+  }
 
   useEffect(() => {
     fetch('http://localhost:8000/api/jobs', {
@@ -31,6 +40,7 @@ function Home() {
       .then(response => response.json())
       .then(data => {
         setGetAllJobs(getAllJobs.filter((job) => job.id !== id))
+        setJobMessage('Vaga removida com sucesso!')
 
       })
       .catch(err => console.log('Erro de solicitação', err))
@@ -39,6 +49,8 @@ function Home() {
   return (
     <>
       <Banner />
+      {message && <Message msg={jobMessage} />}
+      {jobMessage && <Message msg={jobMessage} />}
       <Container>
         {getAllJobs.length > 0 &&
           getAllJobs.map((job) => (
@@ -71,7 +83,7 @@ const Container = styled.div`
     height: 100vh;
     overflow-y: auto;
     padding: 20px;
-    margin: 30px 400px 30px 400px;
+    margin: 15px 200px 15px 200px;
 
 
     ::-webkit-scrollbar {
@@ -94,6 +106,10 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+    @media(max-width: 1300px) {
+      margin: 30px 400px 30px 400px;
+    }
 `
 
 const P = styled.p`
