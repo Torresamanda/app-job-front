@@ -2,6 +2,7 @@ import styled from "styled-components"
 
 import BannerJobs from "../components/BannerJobs"
 import Footer from "../components/Footer"
+import Forms from "../components/Forms"
 
 import background from '../imgs/background.png'
 
@@ -15,7 +16,7 @@ export default function Vagas() {
                 background={background}
             />
             <Container>
-
+                <Forms/>
             </Container>
             <Footer/>
         </>
@@ -26,9 +27,7 @@ export default function Vagas() {
 const Container = styled.div`
     height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
 
 `

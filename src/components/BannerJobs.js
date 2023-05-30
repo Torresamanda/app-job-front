@@ -18,12 +18,7 @@ export default function Banner({background, titulo, msg, router}) {
 }
 
 const Container = styled.div`
-    height: 85vh;
-    background: linear-gradient(rgba(255,255,255,.20),rgba(255,255,255,.20) 100%);
-
-    @media(max-width: 1300px) {
-        height: 90vh;
-    }
+    height: 400px;
 `
 
 const Img = styled.img`
@@ -39,7 +34,7 @@ const Infos = styled.div`
     justify-content: center;
 
     top: 15%;
-    left: 39%;
+    left: 35%;
 
     @media(max-width: 1300px) {
         top: 15%;
