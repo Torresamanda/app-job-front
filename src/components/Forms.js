@@ -1,8 +1,21 @@
+import React, { useState } from "react";
+
 import styled from "styled-components";
 
-export default function Forms() {
+export default function Forms({ handleSubmit, projectData }) {
+    const [jobs, setJobs] = useState(projectData || {})
+
+    const submit = (e) => {
+        e.preventDefault()
+        handleSubmit(jobs)
+    }
+
+    function handleChange(e) {
+        setJobs({ ...jobs, [e.target.name]: e.target.value })
+    }
+
     return (
-        <Form>
+        <Form onSubmit={submit}>
             <Inputs>
                 <Label>Nome</Label>
                 <Input
@@ -10,7 +23,8 @@ export default function Forms() {
                     text="Nome da vaga"
                     name="name"
                     placeholder="Insira o nome da vaga"
-
+                    onChange={handleChange}
+                    value={jobs.name ? jobs.name : ''}
                 />
             </Inputs>
 
@@ -19,8 +33,10 @@ export default function Forms() {
                 <Input
                     type="text"
                     text="Linguagens da vaga"
-                    name="linguagem"
+                    name="linguagens"
                     placeholder="Ex: React/Nodejs"
+                    onChange={handleChange}
+                    value={jobs.linguagens ? jobs.linguages : ''}
                 />
             </Inputs>
 
@@ -31,6 +47,8 @@ export default function Forms() {
                     text="Região da vaga"
                     name="regiao"
                     placeholder="EX: Remoto ou presencial"
+                    onChange={handleChange}
+                    value={jobs.regiao ? jobs.regiao : ''}
                 />
             </Inputs>
 
@@ -41,6 +59,8 @@ export default function Forms() {
                     text="Tipo da vaga"
                     name="tipo"
                     placeholder="Ex: Pleno/Sênior/Júnior"
+                    onChange={handleChange}
+                    value={jobs.tipo ? jobs.tipo : ''}
                 />
             </Inputs>
 
@@ -51,6 +71,8 @@ export default function Forms() {
                     text="Salario da vaga"
                     name="salario"
                     placeholder="Ex: 5000"
+                    onChange={handleChange}
+                    value={jobs.salario ? jobs.salario : ''}
                 />
             </Inputs>
 
@@ -61,17 +83,24 @@ export default function Forms() {
                     text="link da vaga"
                     name="link"
                     placeholder="Ex: linkedin.com.br"
+                    onChange={handleChange}
+                    value={jobs.link ? jobs.link : ''}
                 />
             </Inputs>
 
             <Inputs>
                 <Label>Descrição</Label>
                 <Textarea
+                    type="text"
+                    text="descrição da vaga"
+                    name="descricao"
                     placeholder="Escreva a descrição da vaga"
+                    onChange={handleChange}
+                    value={jobs.descricao ? jobs.descricao : ''}
                 />
             </Inputs>
 
-            <SubmitButton>Enviar Vaga</SubmitButton>
+            <SubmitButton>Adicionar Vaga</SubmitButton>
         </Form>
     )
 }
