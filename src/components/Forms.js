@@ -36,7 +36,7 @@ export default function Forms({ handleSubmit, projectData }) {
                     name="linguagens"
                     placeholder="Ex: React/Nodejs"
                     onChange={handleChange}
-                    value={jobs.linguagens ? jobs.linguages : ''}
+                    value={jobs.linguagens ? jobs.linguagens : ''}
                 />
             </Inputs>
 

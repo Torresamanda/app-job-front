@@ -12,16 +12,16 @@ export default function Vagas() {
         fetch('http://localhost:8000/api/job', {
             method: 'POST',
             headers: {
-                'Content-type': 'application/json',
+                'Content-type': 'application/x-www-form-urlencoded',
             },
-            
-            body: JSON.stringify(jobs)
+            body: new URLSearchParams(jobs)
+
         })
-        .then(response => response.json())
-        .then((data) => {
-            console.log(data)
-        })
-        .catch((err) => console.log(err))
+            .then(response => response.json())
+            .then((data) => {
+                console.log(data)
+            })
+            .catch((err) => console.log(err))
     }
 
     return (
@@ -33,7 +33,7 @@ export default function Vagas() {
                 background={background}
             />
             <Container>
-                <Forms handleSubmit={createJob}/>
+                <Forms handleSubmit={createJob} />
             </Container>
             <Footer />
         </>
