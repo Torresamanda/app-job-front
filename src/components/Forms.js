@@ -8,6 +8,7 @@ export default function Forms({ handleSubmit, projectData }) {
     const submit = (e) => {
         e.preventDefault()
         handleSubmit(jobs)
+        setJobs({})
     }
 
     function handleChange(e) {
@@ -24,6 +25,7 @@ export default function Forms({ handleSubmit, projectData }) {
                     name="name"
                     placeholder="Insira o nome da vaga"
                     onChange={handleChange}
+                    required
                     value={jobs.name ? jobs.name : ''}
                 />
             </Inputs>
@@ -36,6 +38,7 @@ export default function Forms({ handleSubmit, projectData }) {
                     name="linguagens"
                     placeholder="Ex: React/Nodejs"
                     onChange={handleChange}
+                    required
                     value={jobs.linguagens ? jobs.linguagens : ''}
                 />
             </Inputs>
@@ -48,6 +51,7 @@ export default function Forms({ handleSubmit, projectData }) {
                     name="regiao"
                     placeholder="EX: Remoto ou presencial"
                     onChange={handleChange}
+                    required
                     value={jobs.regiao ? jobs.regiao : ''}
                 />
             </Inputs>
@@ -60,6 +64,7 @@ export default function Forms({ handleSubmit, projectData }) {
                     name="tipo"
                     placeholder="Ex: Pleno/Sênior/Júnior"
                     onChange={handleChange}
+                    required
                     value={jobs.tipo ? jobs.tipo : ''}
                 />
             </Inputs>
@@ -72,6 +77,7 @@ export default function Forms({ handleSubmit, projectData }) {
                     name="salario"
                     placeholder="Ex: 5000"
                     onChange={handleChange}
+                    required
                     value={jobs.salario ? jobs.salario : ''}
                 />
             </Inputs>
@@ -84,6 +90,7 @@ export default function Forms({ handleSubmit, projectData }) {
                     name="link"
                     placeholder="Ex: linkedin.com.br"
                     onChange={handleChange}
+                    required
                     value={jobs.link ? jobs.link : ''}
                 />
             </Inputs>
@@ -96,6 +103,7 @@ export default function Forms({ handleSubmit, projectData }) {
                     name="descricao"
                     placeholder="Escreva a descrição da vaga"
                     onChange={handleChange}
+                    required
                     value={jobs.descricao ? jobs.descricao : ''}
                 />
             </Inputs>
