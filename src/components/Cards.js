@@ -4,12 +4,18 @@ import logoMap from '../imgs/location_on.png'
 import logoWork from '../imgs/work.png'
 import logoSalary from '../imgs/attach_money.png'
 import logoDelete from '../imgs/delete.png'
+import logoEdit from '../imgs/pencil.svg'
 
-export default function Cards({ id, name, regiao, tipo, salario, descricao, link, linguagens, handlerRemove }) {
+export default function Cards({ id, name, regiao, tipo, salario, descricao, link, linguagens, handlerRemove, handleEdit }) {
 
     const removeJob = (e) => {
         e.preventDefault()
         handlerRemove(id)
+    }
+
+    const editJob = (e) => {
+        e.preventDefault()
+        handleEdit(id)
     }
 
 
@@ -20,9 +26,14 @@ export default function Cards({ id, name, regiao, tipo, salario, descricao, link
                     <Card key={id} id={id}>
                         <Header>
                             <H3>{name}</H3>
-                            <Delete onClick={removeJob}>
-                                <Imgs src={logoDelete} alt="delete" />
-                            </Delete>
+                            <Buttons>
+                                <Button onClick={removeJob}>
+                                    <Imgs src={logoDelete} alt="delete" />
+                                </Button>
+                                <Button onClick={editJob}>
+                                    <Imgs src={logoEdit} alt="edit" />
+                                </Button>
+                            </Buttons>
                         </Header>
                         <ButtonsLanguages>
                             <ButtonLanguage>{linguagens}</ButtonLanguage>
@@ -97,7 +108,7 @@ const H3 = styled.h3`
     margin-bottom: 10px;
 `
 
-const Delete = styled.button`
+const Button = styled.button`
     background: none;
     border: none;
     cursor: pointer;
@@ -192,4 +203,11 @@ const ButtonSaibaMais = styled.a`
 
     position: relative;
     top: 5px;
+`
+
+const Buttons = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
 `

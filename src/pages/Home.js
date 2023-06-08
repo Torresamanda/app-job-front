@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 import styled from "styled-components";
 
@@ -7,12 +7,16 @@ import Banner from "../components/Banner";
 import Footer from "../components/Footer";
 import Cards from "../components/Cards";
 import Message from "../components/Message";
+import Forms from "../components/Forms"
 
 import background from '../imgs/image01.png'
 
 export default function Home() {
   const [getAllJobs, setGetAllJobs] = useState([])
   const [jobMessage, setJobMessage] = useState('')
+
+  let { id } = useParams()
+  const data = (job) => new URLSearchParams(job).toString()
 
   const location = useLocation()
   let message = ''
@@ -30,7 +34,7 @@ export default function Home() {
       .then((respose) => respose.json())
       .then((json) => setGetAllJobs(json.result))
       .catch(err => console.log('Erro de solicitação', err))
-  }, [])
+  })
 
   function deleteJobs(id) {
     fetch(`http://localhost:8000/api/job/${id}`, {
@@ -46,6 +50,30 @@ export default function Home() {
 
       })
       .catch(err => console.log('Erro de solicitação', err))
+  }
+
+  function editJob(job) {
+    fetch(`http://localhost:8000/api/job/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: data(job)
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data)
+      setGetAllJobs(data)
+    })
+    .catch(err =>  console.log(err))
+  }
+
+  function editJobForms() {
+    return (
+      <div>
+        ola
+      </div>
+    )
   }
 
   return (
@@ -74,12 +102,15 @@ export default function Home() {
               link={job.link}
               descricao={job.descricao}
               handlerRemove={deleteJobs}
+              handleEdit={editJob}
             />
           ))}
         {getAllJobs.length === 0 && (
           <P>Não há vagas para exibir!</P>
         )}
+        {editJobForms()}
       </Container>
+
       <Footer />
     </>
   );
