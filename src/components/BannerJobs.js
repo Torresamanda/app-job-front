@@ -35,11 +35,6 @@ const Infos = styled.div`
 
     top: 15%;
     left: 38%;
-
-    @media(max-width: 1300px) {
-        top: 15%;
-        left: 60%;
-    }
 `
 
 const H3 = styled.h3`
