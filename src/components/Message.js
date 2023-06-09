@@ -36,7 +36,7 @@ export default function Message({ msg, color, backgroud, border }) {
 }
 
 const Mensagem = styled.div`
-    width: 95%;
+    width: 98%;
     padding: 1em;
     border: 1px solid #000;
     margin: 0 auto;
