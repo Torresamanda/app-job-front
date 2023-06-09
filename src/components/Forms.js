@@ -3,27 +3,11 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 export default function Forms({ handleSubmit, projectData, job }) {
-    const [jobs, setJobs] = useState(projectData || {
-        name: "",
-        linguagens: "",
-        regiao: "",
-        tipo: "",
-        salario: "",
-        link: "",
-        descricao: ""
-    })
+    const [jobs, setJobs] = useState(projectData || {})
 
     useEffect(() => {
         if (job) {
-            setJobs({
-                name: job.name || "",
-                linguagens: job.linguagens || "",
-                regiao: job.regiao || "",
-                tipo: job.tipo || "",
-                salario: job.salario || "",
-                link: job.link || "",
-                descricao: job.descricao || ""
-            })
+            setJobs(job)
         }
     }, [job])
 

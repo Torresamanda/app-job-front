@@ -1,93 +1,83 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import Banner from "../components/Banner";
-import Footer from "../components/Footer";
-import Cards from "../components/Cards";
-import Message from "../components/Message";
-import Forms from "../components/Forms"
+import Banner from '../components/Banner';
+import Message from '../components/Message';
+import Footer from '../components/Footer';
+import Forms from '../components/Forms';
+import Cards from '../components/Cards';
 
 import background from '../imgs/image01.png'
 
 export default function Home() {
-  const [getAllJobs, setGetAllJobs] = useState([])
-  const [jobMessage, setJobMessage] = useState('')
-  const [showProjectForm, setShowProjectForm] = useState(false)
-  const [editJobId, setEditJobId] = useState(null)
+  const [getAllJobs, setGetAllJobs] = useState([]);
+  const [jobMessage, setJobMessage] = useState('');
+  const [showProjectForm, setShowProjectForm] = useState(false);
+  const [editJobId, setEditJobId] = useState(null);
+  const [editJobData, setEditJobData] = useState(null);
 
   const data = (job) => new URLSearchParams(job).toString()
 
-  const location = useLocation()
-  let message = ''
-  if (location.state) {
-    message = location.state.message
-  }
-
   useEffect(() => {
-    fetch('http://localhost:8000/api/jobs', {
-      method: 'GET',
-      headers: {
-        'Content-type': 'application/json'
-      }
-    })
-      .then((respose) => respose.json())
-      .then((json) => setGetAllJobs(json.result))
-      .catch(err => console.log('Erro de solicitação', err))
-  })
+    fetch('http://localhost:8000/api/jobs')
+      .then((response) => response.json())
+      .then((data) => {
+        setGetAllJobs(data.result);
+      })
+      .catch((error) => console.log('Erro de solicitação', error));
+  }, []);
 
-  function handlerRemove(id) {
+  const deleteJob = (id) => {
     fetch(`http://localhost:8000/api/job/${id}`, {
       method: 'DELETE',
       headers: {
-        'Content-type': 'application/json'
-      }
+        'Content-type': 'application/json',
+      },
     })
-      .then(response => response.json())
-      .then(data => {
-        setGetAllJobs(getAllJobs.filter((job) => job.id !== id))
-        setJobMessage('Vaga removida com sucesso!')
-
+      .then((response) => response.json())
+      .then((data) => {
+        setGetAllJobs(getAllJobs.filter((job) => job.id !== id));
+        setJobMessage('Vaga removida com sucesso!');
       })
-      .catch(err => console.log('Erro de solicitação', err))
-  }
+      .catch((error) => console.log('Erro de solicitação', error));
+  };
 
   const editJob = (id) => {
-    setEditJobId(id)
-  }
-
-  const handleEdit= (id) => {
-    setShowProjectForm(true)
-    editJob(id)
-  }
+    setEditJobId(id);
+    setEditJobData(getAllJobs.find((job) => job.id === id));
+    setShowProjectForm(true);
+  };
 
   const handleEditFormSubmit = (updatedJob) => {
     fetch(`http://localhost:8000/api/job/${editJobId}`, {
       method: 'PUT',
       headers: {
-        'Content-type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: data(updatedJob),
     })
       .then((response) => response.json())
       .then((data) => {
-        const updateJobs = getAllJobs.map((job) => {
-          if (job.id === editJob) {
-            return {...job, ...updateJobs}
+        const updatedJobs = getAllJobs.map((job) => {
+          if (job.id === editJobId) {
+            return { ...job, ...updatedJob };
           }
-          return job
-        })
-        setGetAllJobs(updateJobs)
-        setJobMessage('Vaga atualizada com sucesso!')
+          return job;
+        });
+        setGetAllJobs(updatedJobs);
+        setJobMessage('Vaga atualizada com sucesso!');
         setShowProjectForm(false);
         setEditJobId(null);
+        setEditJobData(null);
       })
       .catch((error) => console.log('Erro de solicitação', error));
   };
 
   const closeEditForm = () => {
     setShowProjectForm(false);
+    setEditJobId(null);
+    setEditJobData(null);
   };
 
   return (
@@ -100,10 +90,9 @@ export default function Home() {
         text={'de tecnologia com facilidade e velocidade'}
         router={'/vagas'}
       />
-      {message && <Message msg={jobMessage} />}
       {jobMessage && <Message msg={jobMessage} />}
       <Container>
-        {getAllJobs.length > 0 &&
+        {getAllJobs.length > 0 ? (
           getAllJobs.map((job) => (
             <Cards
               key={job.id}
@@ -115,22 +104,24 @@ export default function Home() {
               salario={job.salario}
               link={job.link}
               descricao={job.descricao}
-              handlerRemove={handlerRemove}
-              handleEdit={handleEdit}
+              handlerRemove={deleteJob}
+              handleEdit={editJob}
             />
-          ))}
-        {getAllJobs.length === 0 && (
+          ))
+        ) : (
           <P>Não há vagas para exibir!</P>
         )}
       </Container>
-          {showProjectForm && (
-            <Modal closeModal={closeEditForm}>
-              <Forms 
-                handleSubmit={handleEditFormSubmit}
-                job={getAllJobs.find((job) => job.id === editJob)}
-              />
-            </Modal>
-          )}
+
+      {showProjectForm && (
+        <Modal closeModal={closeEditForm}>
+          <Forms
+            handleSubmit={handleEditFormSubmit}
+            job={editJobData}
+          />
+        </Modal>
+      )}
+
       <Footer />
     </>
   );
