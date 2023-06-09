@@ -20,17 +20,14 @@ export default function Banner({background, titulo, mensagem, text, msg, router}
 }
 
 const Container = styled.div`
-    height: 85vh;
+    height: 100vh;
     background: linear-gradient(rgba(255,255,255,.20),rgba(255,255,255,.20) 100%);
-
-    @media(max-width: 1300px) {
-        height: 90vh;
-    }
 `
 
 const Img = styled.img`
     position: absolute;
-    top: -40px;
+    top: -60px;
+    height: 100%;
 `
 
 const Infos = styled.div`

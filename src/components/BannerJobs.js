@@ -34,11 +34,11 @@ const Infos = styled.div`
     justify-content: center;
 
     top: 15%;
-    left: 35%;
+    left: 38%;
 
     @media(max-width: 1300px) {
         top: 15%;
-        left: 40%;
+        left: 60%;
     }
 `
 
