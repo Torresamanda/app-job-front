@@ -80,6 +80,8 @@ export default function Home() {
     setEditJobData(null);
   };
 
+  const reverseJobs = [...getAllJobs].reverse()
+
   return (
     <>
       <Banner
@@ -92,8 +94,8 @@ export default function Home() {
       />
       {jobMessage && <Message msg={jobMessage} />}
       <Container>
-        {getAllJobs.length > 0 ? (
-          getAllJobs.map((job) => (
+        {reverseJobs.length > 0 ? (
+          reverseJobs.map((job) => (
             <Cards
               key={job.id}
               id={job.id}
@@ -129,35 +131,10 @@ export default function Home() {
 }
 
 const Container = styled.div`
-    overflow-y: auto;
-    padding: 20px;
-    margin: 15px 200px 15px 200px;
-
-
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 5px #12131F; 
-        border-radius: 10px;
-    }
-    
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-        background: #D96429; 
-        border-radius: 10px;
-    }
-
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-
-    @media(max-width: 1300px) {
-      margin: 30px 400px 30px 400px;
-    }
 `
 
 const P = styled.p`
@@ -174,6 +151,6 @@ const Modal = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(154, 62, 62, 0.8);
+  background-color: rgba(217, 100, 41, 0.9);
 
 `
