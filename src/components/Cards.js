@@ -61,8 +61,6 @@ export default function Cards({ id, name, regiao, tipo, salario, descricao, link
 }
 
 const Container = styled.div`
-    position: relative;
-
     background-color: #FFFFFF;
 
     display: flex;

@@ -128,7 +128,6 @@ export default function Home() {
 }
 
 const Container = styled.div`
-    height: 100vh;
     overflow-y: auto;
     padding: 20px;
     margin: 15px 200px 15px 200px;
