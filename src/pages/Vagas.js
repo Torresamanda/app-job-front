@@ -41,7 +41,7 @@ export default function Vagas() {
             />
             {jobMessage && <Message msg={jobMessage} />}
             <Container>
-                <Forms handleSubmit={createJob} />
+                <Forms handleSubmit={createJob} text={'Adicionar Vaga'}/>
             </Container>
             <Footer />
         </>

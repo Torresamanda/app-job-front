@@ -118,6 +118,7 @@ export default function Home() {
           <Forms
             handleSubmit={handleEditFormSubmit}
             job={editJobData}
+            text={'Atualizar Vaga'}
           />
         </Modal>
       )}

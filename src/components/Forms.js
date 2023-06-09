@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import styled from "styled-components";
 
-export default function Forms({ handleSubmit, projectData, job }) {
+export default function Forms({ handleSubmit, projectData, job, text }) {
     const [jobs, setJobs] = useState(projectData || {})
 
     useEffect(() => {
@@ -114,7 +114,7 @@ export default function Forms({ handleSubmit, projectData, job }) {
                 />
             </Inputs>
 
-            <SubmitButton>Adicionar Vaga</SubmitButton>
+            <SubmitButton>{text}</SubmitButton>
         </Form>
     )
 }
