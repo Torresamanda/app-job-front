@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import styled from "styled-components";
 
@@ -14,8 +14,9 @@ import background from '../imgs/image01.png'
 export default function Home() {
   const [getAllJobs, setGetAllJobs] = useState([])
   const [jobMessage, setJobMessage] = useState('')
+  const [showProjectForm, setShowProjectForm] = useState(false)
+  const [editJobId, setEditJobId] = useState(null)
 
-  let { id } = useParams()
   const data = (job) => new URLSearchParams(job).toString()
 
   const location = useLocation()
@@ -36,7 +37,7 @@ export default function Home() {
       .catch(err => console.log('Erro de solicitação', err))
   })
 
-  function deleteJobs(id) {
+  function handlerRemove(id) {
     fetch(`http://localhost:8000/api/job/${id}`, {
       method: 'DELETE',
       headers: {
@@ -52,29 +53,42 @@ export default function Home() {
       .catch(err => console.log('Erro de solicitação', err))
   }
 
-  function editJob(job) {
-    fetch(`http://localhost:8000/api/job/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: data(job)
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data)
-      setGetAllJobs(data)
-    })
-    .catch(err =>  console.log(err))
+  const editJob = (id) => {
+    setEditJobId(id)
   }
 
-  function editJobForms() {
-    return (
-      <div>
-        ola
-      </div>
-    )
+  const handleEdit= (id) => {
+    setShowProjectForm(true)
+    editJob(id)
   }
+
+  const handleEditFormSubmit = (updatedJob) => {
+    fetch(`http://localhost:8000/api/job/${editJobId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/x-www-form-urlencoded',
+      },
+      body: data(updatedJob),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const updateJobs = getAllJobs.map((job) => {
+          if (job.id === editJob) {
+            return {...job, ...updateJobs}
+          }
+          return job
+        })
+        setGetAllJobs(updateJobs)
+        setJobMessage('Vaga atualizada com sucesso!')
+        setShowProjectForm(false);
+        setEditJobId(null);
+      })
+      .catch((error) => console.log('Erro de solicitação', error));
+  };
+
+  const closeEditForm = () => {
+    setShowProjectForm(false);
+  };
 
   return (
     <>
@@ -101,16 +115,22 @@ export default function Home() {
               salario={job.salario}
               link={job.link}
               descricao={job.descricao}
-              handlerRemove={deleteJobs}
-              handleEdit={editJob}
+              handlerRemove={handlerRemove}
+              handleEdit={handleEdit}
             />
           ))}
         {getAllJobs.length === 0 && (
           <P>Não há vagas para exibir!</P>
         )}
-        {editJobForms()}
       </Container>
-
+          {showProjectForm && (
+            <Modal closeModal={closeEditForm}>
+              <Forms 
+                handleSubmit={handleEditFormSubmit}
+                job={getAllJobs.find((job) => job.id === editJob)}
+              />
+            </Modal>
+          )}
       <Footer />
     </>
   );
@@ -155,4 +175,14 @@ const P = styled.p`
   letter-spacing: 5px;
   text-transform: uppercase;
   padding: 25px;
+`
+
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(154, 62, 62, 0.8);
+
 `

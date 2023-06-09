@@ -1,18 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import styled from "styled-components";
 
-export default function Forms({ handleSubmit, projectData }) {
-    const [jobs, setJobs] = useState(projectData || {})
+export default function Forms({ handleSubmit, projectData, job }) {
+    const [jobs, setJobs] = useState(projectData || {
+        name: "",
+        linguagens: "",
+        regiao: "",
+        tipo: "",
+        salario: "",
+        link: "",
+        descricao: ""
+    })
+
+    useEffect(() => {
+        if (job) {
+            setJobs({
+                name: job.name || "",
+                linguagens: job.linguagens || "",
+                regiao: job.regiao || "",
+                tipo: job.tipo || "",
+                salario: job.salario || "",
+                link: job.link || "",
+                descricao: job.descricao || ""
+            })
+        }
+    }, [job])
+
+    function handleChange(e) {
+        setJobs({ ...jobs, [e.target.name]: e.target.value })
+    }
 
     const submit = (e) => {
         e.preventDefault()
         handleSubmit(jobs)
         setJobs({})
-    }
-
-    function handleChange(e) {
-        setJobs({ ...jobs, [e.target.name]: e.target.value })
     }
 
     return (

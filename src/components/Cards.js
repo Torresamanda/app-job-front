@@ -14,10 +14,8 @@ export default function Cards({ id, name, regiao, tipo, salario, descricao, link
     }
 
     const editJob = (e) => {
-        e.preventDefault()
         handleEdit(id)
     }
-
 
     return (
         <>

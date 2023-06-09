@@ -9,10 +9,11 @@ import Message from "../components/Message"
 
 import background from '../imgs/background.png'
 
-const data = (job) => new URLSearchParams(job).toString()
 
 export default function Vagas() {
     const [jobMessage, setJobMessage] = useState('')
+
+    const data = (job) => new URLSearchParams(job).toString()
 
     function createJob(jobs) {
         fetch('http://localhost:8000/api/job', {
